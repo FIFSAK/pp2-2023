@@ -20,14 +20,16 @@ def head_legs(heads, legs):
 def filter_prime(arr):
     cnt = 0
     arr = arr.split(' ')
+    z = []
     for i in arr:
         i = int(i)
         for j in range(1, i + 1):
             if i % j == 0:
                 cnt += 1
         if cnt == 2 or i == 1:
-            print(i)
+            z.append(i)
         cnt = 0
+    return z
 
 
 def perstr(s):
@@ -100,4 +102,3 @@ def Game():
     print("Good job")
 
 
-filter_prime("1 2 3 4 5 6 7 8 9 11")

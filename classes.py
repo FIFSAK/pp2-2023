@@ -1,4 +1,6 @@
-from function1 import  filter_prime
+from function1 import filter_prime
+
+
 class first:
     def Getstring(self, a, b):
         self.b = b
@@ -9,16 +11,18 @@ class first:
 
 
 class Shape:
-    def area():
-        print(0)
+    def __init__(self):
+        self.length = 0
+        self.width = 0
+
+    def area(self):
+        print(self.length * self.width)
 
 
 class Square(Shape):
     def __init__(self, length):
         self.length = length
-
-    def area(self):
-        print(int(self.length) ** 2)
+        self.width = length
 
 
 class Rectangle(Shape):
@@ -26,12 +30,9 @@ class Rectangle(Shape):
         self.length = length
         self.width = width
 
-    def area(self):
-        print(int(self.length) * int(self.width))
-
 
 class Point:
-    s = [0, ".", 0, 0, 0, ".", 0 , 0]
+    s = [0, ".", 0, 0, 0, ".", 0, 0]
 
     def show(self):
         for k, i in enumerate(self.s):
@@ -57,8 +58,7 @@ class Point:
                 cnt += 1
             if cnt == 1:
                 d += 1
-        print(d-1)
-
+        print(d - 1)
 
 
 class Bank:
@@ -70,16 +70,16 @@ class Bank:
         self.bal += m
 
     def withdraw(self, n):
-        if self.bal>=n:
-            self.bal-=n
+        if self.bal >= n:
+            self.bal -= n
         else:
             print("not enough money")
 
     def GetBal(self):
         print(self.bal)
 
+x = lambda arr: filter_prime(arr)
+print(x("1 2 3 4 5 6 7 8 9 10"))
 
-print(lambda arr: filter_prime(arr)("1 2 3 4 5 6 7"))
-
-
-
+a = Rectangle(2, 3)
+a.area()
