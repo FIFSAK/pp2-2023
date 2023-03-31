@@ -6,17 +6,17 @@ with sq.connect("snake_users_table.db") as con:
 
     cur.execute(""" CREATE TABLE IF NOT EXISTS users (
         name TEXT,
-        level TEXT
+        level NUM
         )""")
 
     cur.execute(f"SELECT name FROM users WHERE name = '{user_name}'")
     if cur.fetchone() is None:
         cur.execute(f"INSERT INTO users VALUES (?,?)", (user_name, '0'))
-        level = '0'
+        level = 0
     else:
         cur.execute(f"SELECT level FROM users WHERE name = '{user_name}'")
         level = cur.fetchone()
-        level = str(level[0])
+        level = level[0]
     for i in cur.execute("SELECT * FROM users"):
         print(i)
 
