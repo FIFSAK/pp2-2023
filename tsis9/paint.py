@@ -1,5 +1,5 @@
 import pygame
-
+import math
 pygame.init()
 sc = pygame.display.set_mode((600, 400))
 check = True
@@ -26,18 +26,20 @@ while check:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
             rect_flag = True
             check_draw = False
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_c:
+            circle_flag = False
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_c:
             rect_flag = False
             check_draw = False
             circle_flag = True
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and rect_flag:
+        if rect_flag and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             start_pos = event.pos
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and circle_flag:
+        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and circle_flag:
             start_pos = event.pos
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             start_pos = event.pos
             check_draw = True
             rect_flag = False
+            circle_flag = False
         if event.type == pygame.MOUSEMOTION:
             if check_draw:
                 end_pos = event.pos
@@ -45,14 +47,18 @@ while check:
                 start_pos = end_pos
             if rect_flag:
                 end_pos = event.pos
-                width_rect = end_pos[0] - start_pos[0]
-                height_rect = end_pos[1] - start_pos[1]
-                # sc.fill('black')
-                pygame.draw.rect(sc, color, (start_pos[0], start_pos[1], width_rect, height_rect))
+                x, y = min(start_pos[0], end_pos[0]), min(start_pos[1], end_pos[1])
+                width_rect = max(end_pos[0], start_pos[0]) - x
+                height_rect = max(end_pos[1], start_pos[1]) - y
+                sc.fill('black')
+                pygame.draw.rect(sc, color, pygame.Rect(x, y, width_rect, height_rect))
             if circle_flag:
                 end_pos = event.pos
-                radius = (end_pos[0] - start_pos[0]) // 2
-                pygame.draw.circle(sc, color, (end_pos), radius, 2)
+                dx = end_pos[0] - start_pos[0]
+                dy = end_pos[1] - start_pos[1]
+                radius = int(math.sqrt(dx ** 2 + dy ** 2))
+                cent = ((start_pos[0] + end_pos[0]) // 2, (start_pos[1] + end_pos[1]) // 2)
+                pygame.draw.circle(sc, color, cent, radius, 2)
         elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
             check_draw = False
             rect_flag = False
