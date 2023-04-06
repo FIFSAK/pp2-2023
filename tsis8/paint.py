@@ -50,7 +50,7 @@ while check:
                 x, y = min(start_pos[0], end_pos[0]), min(start_pos[1], end_pos[1])
                 width_rect = max(end_pos[0], start_pos[0]) - x
                 height_rect = max(end_pos[1], start_pos[1]) - y
-                sc.fill('black')
+                # sc.fill('black')
                 pygame.draw.rect(sc, color, pygame.Rect(x, y, width_rect, height_rect))
             if circle_flag:
                 end_pos = event.pos
