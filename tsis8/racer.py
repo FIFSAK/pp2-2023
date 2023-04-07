@@ -45,9 +45,9 @@ while check:
     sc.blit(car, (x, 460))
     score_table = f.render(str(score), True, 'red')
     sc.blit(score_table, (0, 0))
-    pygame.draw.rect(sc, 'white', pygame.Rect(x_e, y_e+100, 5, 5))
-    # if y_c > 600:
-    #     check = False
+    # pygame.draw.rect(sc, 'white', pygame.Rect(x, y_e+100, 5, 5))
+    if y_c > 600:
+        check = False
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
@@ -67,8 +67,6 @@ while check:
         x_c = randint(0, 340)
         score += coin_s
         coin_s = choice([0.5, 1])
-    if y_e > 360:
-        check = False
         if coin_s == 0.5:
             coin = coin_half
         if coin_s == 1:
@@ -77,6 +75,12 @@ while check:
             speed += 2
         elif (score - 0.5) % 3 == 0 and (score - 0.5) != 0:
             speed += 2
+    if x_e <= x <= x_e + 40 and y_e > 360:
+        check = False
+    elif x_e <= x + 60 <= x_e + 40 and y_e > 360:
+        check = False
+    elif x_e <= x + 30 <= x_e + 40 and y_e > 360:
+        check = False
     if y_e > 600:
         y_e = 0
         x_e = randint(0, 340)
