@@ -114,6 +114,7 @@ while check:
                 dy = end_pos[1] - start_pos[1]
                 radius = int(math.sqrt(dx ** 2 + dy ** 2))
                 cent = ((start_pos[0] + end_pos[0]) // 2, (start_pos[1] + end_pos[1]) // 2)
+                sc.fill('black')
                 pygame.draw.circle(sc, color, cent, radius)
             if square_flag:
                 end_pos = event.pos
@@ -148,7 +149,6 @@ while check:
                 point2 = (mid_point_x, mid_point_y - side_length)
                 point3 = end_pos
                 point4 = (mid_point_x, mid_point_y + side_length)
-
                 sc.fill('black')
                 pygame.draw.polygon(sc, color, [point1, point2, point3, point4], 0)
         elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
