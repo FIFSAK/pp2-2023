@@ -24,5 +24,4 @@ with sq.connect("snake_users_table.db") as con:
 def update(nm, olv, nlv):
     with sq.connect("snake_users_table.db") as con:
         cur = con.cursor()
-        cur.execute("DELETE FROM users where name = ? and level = ?", (nm, olv))
-        cur.execute(f"INSERT INTO users VALUES (?, ?)", (nm, nlv))
+        cur.execute("UPDATE users SET level = ? WHERE name = ?", (nlv, nm))
