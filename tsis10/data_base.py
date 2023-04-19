@@ -1,5 +1,4 @@
 import sqlite3 as sq
-
 check = True
 with sq.connect("PhoneBook.db") as con:
     cur = con.cursor()
@@ -32,8 +31,8 @@ with sq.connect("PhoneBook.db") as con:
             new_name = input()
             print("write the new phone which you want to update:")
             new_phone = input()
-            cur.execute("DELETE FROM users where name = ? and phone = ?", (name, phone))
-            cur.execute(f"INSERT INTO users VALUES (?, ?)", (new_name, new_phone))
+            cur.execute(f"UPDATE users SET name = ? , phone = ? WHERE name = ? and phone = ?",
+                        (new_name, new_phone, name, phone))
 
         if n == 3:
             print("write the user name which you want to delete:")
