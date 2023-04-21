@@ -123,4 +123,4 @@ while check:
     pg.display.update()
     clock.tick(FPS + (2 * level))
 
-update(user_name, old_level, level)
+update(user_name, level)

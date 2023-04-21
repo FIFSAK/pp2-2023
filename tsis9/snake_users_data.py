@@ -21,7 +21,7 @@ with sq.connect("snake_users_table.db") as con:
         print(i)
 
 
-def update(nm, olv, nlv):
+def update(nm, nlv):
     with sq.connect("snake_users_table.db") as con:
         cur = con.cursor()
         cur.execute("UPDATE users SET level = ? WHERE name = ?", (nlv, nm))
