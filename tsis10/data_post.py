@@ -6,10 +6,6 @@ check = True
 with psycopg2.connect(dbname="postgres", user="postgres", password=" ", host="127.0.0.1") as con:
     cur = con.cursor()
     con.autocommit = True
-    cur.execute("""CREATE TABLE IF NOT EXISTS phonebook 
-                (name TEXT,
-                phone TEXT
-                )""")
     while check:
         print(
             "[0] to exit\n[1] to add phone\n[2] to update phone\n[3] to delete phone\n[4] print data\n[5] add csv file")
@@ -42,7 +38,7 @@ with psycopg2.connect(dbname="postgres", user="postgres", password=" ", host="12
             phone = input()
             cur.execute(f"DELETE FROM phonebook where ('{name}', '{phone}')")
         if n == 4:
-            print("inser 0 to print not sorted\ninsert 1 to sort by name")
+            print("insert 0 to print not sorted\ninsert 1 to sort by name")
             a = int(input())
             if a == 0:
                 cur.execute("select * from phonebook")
@@ -59,4 +55,5 @@ with psycopg2.connect(dbname="postgres", user="postgres", password=" ", host="12
                     name = i[0]
                     phone = i[1]
                     cur.execute(f"INSERT INTO phonebook (name, phone) VALUES ('{name}', '{phone}')")
+
         con.commit()
