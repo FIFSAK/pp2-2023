@@ -5,6 +5,58 @@ check = True
 with psycopg2.connect(dbname="postgres", user="postgres", password=" ", host="127.0.0.1") as con:
     cur = con.cursor()
     con.autocommit = True
+
+    # function for get paginated data
+    cur.execute("""CREATE OR REPLACE FUNCTION get_paginated_data(
+        _limit INTEGER,
+        _offset INTEGER
+    )
+    RETURNS TABLE (
+        name TEXT,
+        phone TEXT
+    )
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+        RETURN QUERY SELECT *
+        FROM phonebook
+        LIMIT _limit
+        OFFSET _offset;
+    END;
+    $$;""")
+
+    # procedure for delete user
+    cur.execute("""create or replace procedure delete_phone(v text)
+    LANGUAGE plpgsql
+    as $$ 
+    begin
+        delete from phonebook where name = v or phone = v;
+    end;
+    $$;""")
+
+    # function  for print all data
+    cur.execute("""CREATE OR REPLACE FUNCTION print_data()
+RETURNS TABLE(name text, phone text) AS $$
+BEGIN
+    RETURN QUERY SELECT * FROM phonebook;
+END;
+$$ LANGUAGE plpgsql;""")
+
+    # procedure for update all insert user
+    cur.execute("""CREATE OR REPLACE PROCEDURE add_new(n text, p text)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    UPDATE phonebook SET phone = p WHERE name = n;
+
+    IF NOT FOUND THEN
+        INSERT INTO phonebook(name, phone) VALUES(n, p);
+    END IF;
+
+END;
+$$;
+""")
+
     while check:
         print(
             "[0] to exit\n[1] to update or insert phone\n[2] to delete phone\n[3] print data\n[4] insert many values\n[5] get pagination")
@@ -70,4 +122,3 @@ with psycopg2.connect(dbname="postgres", user="postgres", password=" ", host="12
             result = cur.fetchall()
             for i in result:
                 print(i)
-
